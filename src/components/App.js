@@ -5,7 +5,7 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm.js';
-import PopupImage from './PopupImage.js';
+import ImagePopup from './ImagePopup.js';
 
 function App() {
   const [isEditPopupOpen, setIsEditPopupOpen] = React.useState(false);
@@ -115,7 +115,7 @@ function App() {
         <span className="popup__error" id="newAvatar-error"></span>
       </PopupWithForm>
 
-      <PopupImage card={selectedCard} onClose={closeAllPopups} />
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       <PopupWithForm name="delete" title="Вы уверены?" submitButton="Да"></PopupWithForm>
     </div>
   );
