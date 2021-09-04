@@ -56,8 +56,8 @@ function App() {
           name="name"
           placeholder="Имя"
           id="username"
-          minlength="2"
-          maxlength="40"
+          minLength="2"
+          maxLength="40"
           required
         />
         <span id="username-error" className="popup__error"></span>
@@ -67,8 +67,8 @@ function App() {
           placeholder="Исследователь океана"
           className="popup__input"
           id="userjob"
-          minlength="2"
-          maxlength="200"
+          minLength="2"
+          maxLength="200"
           required
         />
         <span id="userjob-error" className="popup__error"></span>
@@ -88,8 +88,8 @@ function App() {
           className="popup__input"
           id="placeName"
           required
-          minlength="2"
-          maxlength="30"
+          minLength="2"
+          maxLength="30"
         />
         <span id="placeName-error" className="popup__error"></span>
         <input type="url" name="link" placeholder="Ссылка на картинку" className="popup__input" id="link" required />
@@ -108,7 +108,7 @@ function App() {
           id="newAvatar"
           name="link-avatar"
           type="url"
-          value=""
+          defaultValue=""
           placeholder="Ссылка на новый аватар"
           required
         />

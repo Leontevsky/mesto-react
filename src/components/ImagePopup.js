@@ -1,7 +1,7 @@
 import React from 'react';
 import '../index.css';
 
-function PopupImage({ card, onClose }) {
+function ImagePopup({ card, onClose }) {
   return (
     <div className={`popup popup_type_image ${card.name ? 'popup_open' : ''}`}>
       <div className="popup__content popup__content_image">
@@ -13,4 +13,4 @@ function PopupImage({ card, onClose }) {
   );
 }
 
-export default PopupImage;
+export default ImagePopup;
