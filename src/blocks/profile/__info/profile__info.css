@@ -1,0 +1,19 @@
+.profile__info {
+    display: grid;
+    grid-template-columns: minmax(auto, 294px);
+    /* grid-template-columns: repeat(2, 1fr);
+grid-template-rows: repeat(2, 1fr); */
+    grid-template-areas: "title button" "subtitle subtitle";
+    gap: 16px 18px;
+}
+
+@media screen and (max-width: 520px) {
+    .profile__info {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 22.25px;
+        margin-bottom: 36px;
+    }
+}

@@ -1,0 +1,6 @@
+.element {
+    min-height: 282px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
