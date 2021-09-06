@@ -5,6 +5,12 @@ class Api {
     this._headers = this._config.headers;
   }
 
+  return;
+
+  _handleResponse(res) {
+    return res.ok ? res.json() : Promise.reject(`Ошибка! ${res.status}`);
+  }
+
   getAllData() {
     return Promise.all([this.getUserInfo(), this.getInitialCards()]);
   }
@@ -15,7 +21,7 @@ class Api {
       method: 'GET',
       headers: this._headers,
     }).then((res) => {
-      return res.ok ? res.json() : Promise.reject(`Ошибка! ${res.status}`);
+      return this._handleResponse(res);
     });
     //.catch(err => this._errorRequestResult(err))
   }
@@ -25,7 +31,7 @@ class Api {
       method: 'GET',
       headers: this._headers,
     }).then((res) => {
-      return res.ok ? res.json() : Promise.reject(`Ошибка! ${res.status}`);
+      return this._handleResponse(res);
     });
   }
 
@@ -38,7 +44,7 @@ class Api {
         about: about,
       }),
     }).then((res) => {
-      return res.ok ? res.json() : Promise.reject(`Ошибка! ${res.status}`);
+      return this._handleResponse(res);
     });
   }
 
@@ -50,7 +56,7 @@ class Api {
         avatar: url,
       }),
     }).then((res) => {
-      return res.ok ? res.json() : Promise.reject(`Ошибка! ${res.status}`);
+      return this._handleResponse(res);
     });
   }
 
@@ -63,7 +69,7 @@ class Api {
         link: link,
       }),
     }).then((res) => {
-      return res.ok ? res.json() : Promise.reject(`Ошибка! ${res.status}`);
+      return this._handleResponse(res);
     });
   }
 
@@ -72,7 +78,7 @@ class Api {
       method: 'DELETE',
       headers: this._headers,
     }).then((res) => {
-      return res.ok ? res.json() : Promise.reject(`Ошибка! ${res.status}`);
+      return this._handleResponse(res);
     });
   }
 
@@ -81,7 +87,7 @@ class Api {
       method: 'PUT',
       headers: this._headers,
     }).then((res) => {
-      return res.ok ? res.json() : Promise.reject(`Ошибка! ${res.status}`);
+      return this._handleResponse(res);
     });
   }
 
@@ -90,7 +96,7 @@ class Api {
       method: 'DELETE',
       headers: this._headers,
     }).then((res) => {
-      return res.ok ? res.json() : Promise.reject(`Ошибка! ${res.status}`);
+      return this._handleResponse(res);
     });
   }
 }
