@@ -1,0 +1,17 @@
+.profile__change {
+    border: none;
+    display: none;
+    background-image: url(../../../images/profile-avatar-edit.svg);
+    height: 26px;
+    min-width: 26px;
+    border-radius: 0px;
+    background-color: transparent;
+    position: absolute;
+    left: 40%;
+    top: 40%;
+}
+
+
+/* .profile__change:hover {
+    cursor: pointer;
+} */
