@@ -6,12 +6,20 @@ import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
+import api from '../utils/Api';
 
 function App() {
   const [isEditPopupOpen, setIsEditPopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
+  const [currentUser, setCurrentUser] = React.useState({});
+
+  /*   React.UseEffect(() => {
+    api.getUserInfo().then((module) => {
+      setCurrentUser.
+    })
+  }); */
 
   function handleEditProfileClick() {
     setIsEditPopupOpen(true);
