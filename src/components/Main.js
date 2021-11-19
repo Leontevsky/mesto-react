@@ -1,33 +1,40 @@
 import React from 'react';
-import api from '../utils/Api';
+import api from '../utils/Api.js';
 import Card from './Card.js';
+import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
-function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setUserDescription] = React.useState('');
-  const [userAvatar, setUserAvatar] = React.useState('');
-  const [cards, setCards] = React.useState([]);
+function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick, cards }) {
+  // const [userName, setUserName] = React.useState(''); // имя жак иф
+  // const [userDescription, setUserDescription] = React.useState(''); // о себе привет привет
+  // const [userAvatar, setUserAvatar] = React.useState(''); // change avatar
+  // const [cards, setCards] = React.useState([]); // to get card
 
-  React.useEffect(() => {
-    api
-      .getAllData()
-      .then((arg) => {
-        const [dataUserInfo, dataCards] = arg;
-        setUserName(dataUserInfo.name);
-        setUserDescription(dataUserInfo.about);
-        setUserAvatar(dataUserInfo.avatar);
-        setCards(dataCards);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // api = делаем запрос к бэку. Это наш бэк.
+
+  // React.useEffect(() => {
+  //   api
+  //     .getAllData()
+  //     .then((arg) => {
+  //       // отдай наши данные, затем
+  //       const [dataUserInfo, dataCards] = arg; // почему скобки квадратные?
+  //       setUserName(dataUserInfo.name); // если данные изменились, он из через setstate обновит
+  //       setUserDescription(dataUserInfo.about);
+  //       setUserAvatar(dataUserInfo.avatar);
+  //       setCards(dataCards);
+  //     })
+  //     // ловлю ошибки и показываю их
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []); // зачем это
+
+  const currentUser = React.useContext(CurrentUserContext);
 
   return (
     <div className="content">
       <div className="profile">
         <div className="profile__container" onClick={onEditAvatar}>
-          <img className="profile__avatar" src={`${userAvatar}`} alt="avatar" />
+          <img className="profile__avatar" src={`${currentUser.userAvatar}`} alt="avatar" />
           <button
             type="button"
             className="profile__change"
@@ -36,9 +43,9 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
           ></button>
         </div>
         <div className="profile__info">
-          <h1 className="profile__title">{userName}</h1>
+          <h1 className="profile__title">{currentUser.userName}</h1>
           <button type="button" className="profile__select-button" id="show-popup" onClick={onEditProfile}></button>
-          <p className="profile__subtitle">{userDescription}</p>
+          <p className="profile__subtitle">{currentUser.userDescription}</p>
         </div>
         <button type="button" className="profile__button" id="show-popup-new" onClick={onAddPlace}></button>
       </div>
