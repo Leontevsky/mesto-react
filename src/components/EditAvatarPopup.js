@@ -23,6 +23,7 @@ function EditAvatarPopup({ isOpen, isClose, onUpdateAvatar }) {
       handleSubmit={handleSubmit}
     >
       <input
+        ref={avatarRef}
         className="popup__input"
         id="newAvatar"
         name="link-avatar"

@@ -9,6 +9,7 @@ import ImagePopup from './ImagePopup.js';
 import api from '../utils/Api.js';
 import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
+import AddPlacePopup from './AddPlacePopup.js';
 import { CurrentUserContext } from '../context/CurrentUserContext.js';
 
 function App() {
@@ -111,6 +112,18 @@ function App() {
       });
   }
 
+  function handleAddPlaceSubmit({ name, link }) {
+    api
+      .addCard(name, link)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+        setIsAddPlacePopupOpen(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="description">
@@ -127,29 +140,8 @@ function App() {
           />
           <Footer />
         </div>
-        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
-
-        <PopupWithForm
-          name="new"
-          title="Новое место"
-          submitButton="Cохранить"
-          isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
-        >
-          <input
-            type="text"
-            name="name"
-            placeholder="Название"
-            className="popup__input"
-            id="placeName"
-            required
-            minLength="2"
-            maxLength="30"
-          />
-          <span id="placeName-error" className="popup__error"></span>
-          <input type="url" name="link" placeholder="Ссылка на картинку" className="popup__input" id="link" required />
-          <span id="link-error" className="popup__error"></span>
-        </PopupWithForm>
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onUpdateUser={handleUpdateUser} />
+        <AddPlacePopup isOpen={isAddPlacePopupOpen} onAddPlace={handleAddPlaceSubmit} />
         <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
         <PopupWithForm name="delete" title="Вы уверены?" submitButton="Да"></PopupWithForm>
