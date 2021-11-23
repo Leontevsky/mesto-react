@@ -24,6 +24,7 @@
 @import url(./blocks/element/__button/_theme-dark/element__button_theme-dark.css);
 @import url(./blocks/element/__button/_count/element__button_count.css);
 @import url(./blocks/element/__button/_delete/element__button_delete.css);
+@import url(./blocks/element/__button/_delete-hidden/element__button_delete-hidden.css);
 @import url(./blocks/footer/footer.css);
 @import url(./blocks/footer/__author/footer__author.css);
 @import url(./blocks/popup/popup.css);
