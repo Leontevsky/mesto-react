@@ -7,9 +7,11 @@ import Footer from './Footer';
 import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
 import api from '../utils/Api.js';
+import EditProfilePopup from './EditProfilePopup.js';
 import { CurrentUserContext } from '../context/CurrentUserContext.js';
 
 function App() {
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isEditPopupOpen, setIsEditPopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
@@ -40,7 +42,7 @@ function App() {
   }, []);
 
   function handleEditProfileClick() {
-    setIsEditPopupOpen(true);
+    setIsEditProfilePopupOpen(true);
   }
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true);
@@ -52,7 +54,7 @@ function App() {
     setSelectedCard(card);
   }
   function closeAllPopups() {
-    setIsEditPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setSelectedCard({});
@@ -63,9 +65,37 @@ function App() {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-    });
+    api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function handleCardDelete(card) {
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        setCards((state) => state.filter((c) => c._id !== card._id));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function handleUpdateUser({ name, about }) {
+    api
+      .editUserInfo(name, about)
+      .then((updatedUser) => {
+        setCurrentUser(updatedUser);
+        // setIsEditProfilePopupOpen(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (
@@ -80,39 +110,11 @@ function App() {
             cards={cards}
             onCardClick={handleCardClick}
             onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
           />
           <Footer />
         </div>
-        <PopupWithForm
-          name="edit"
-          title="Редактировать профиль"
-          submitButton="Cохранить"
-          isOpen={isEditPopupOpen}
-          onClose={closeAllPopups}
-        >
-          <input
-            className="popup__input"
-            type="text"
-            name="name"
-            placeholder="Имя"
-            id="username"
-            minLength="2"
-            maxLength="40"
-            required
-          />
-          <span id="username-error" className="popup__error"></span>
-          <input
-            type="text"
-            name="about"
-            placeholder="Исследователь океана"
-            className="popup__input"
-            id="userjob"
-            minLength="2"
-            maxLength="200"
-            required
-          />
-          <span id="userjob-error" className="popup__error"></span>
-        </PopupWithForm>
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
 
         <PopupWithForm
           name="new"
