@@ -3,7 +3,7 @@ import api from '../utils/Api.js';
 import Card from './Card.js';
 import { CurrentUserContext } from '../context/CurrentUserContext.js';
 
-function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick, cards }) {
+function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick, cards, onCardLike }) {
   const currentUser = React.useContext(CurrentUserContext);
 
   return (
@@ -29,7 +29,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick, cards }) {
       <div className="elements">
         <ul className="elements__list">
           {cards.map((card) => (
-            <Card key={card._id} card={card} onCardClick={onCardClick} />
+            <Card key={card._id} card={card} onCardClick={onCardClick} onCardLike={onCardLike} />
           ))}
         </ul>
       </div>

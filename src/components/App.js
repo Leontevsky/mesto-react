@@ -79,6 +79,7 @@ function App() {
             onEditAvatar={handleEditAvatarClick}
             cards={cards}
             onCardClick={handleCardClick}
+            onCardLike={handleCardLike}
           />
           <Footer />
         </div>
